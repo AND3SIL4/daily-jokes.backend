@@ -21,7 +21,5 @@ app.include_router(jokes.router, prefix="/joke", tags=["Jokes"])
 def root():
     return JSONResponse(
         status_code=200,
-        content={
-            "app_version": VERSION,
-        },
+        content={"app_version": VERSION, "developed_by": "Felipe Silva (and3sil4)"},
     )
