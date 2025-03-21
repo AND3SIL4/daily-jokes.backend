@@ -26,7 +26,7 @@ class Database:
         cursor = conn.cursor()
         # Validate if the joke already exists and return it
         cursor.execute(
-            "SELECT id, content, score FROM jokes WHERE date = ? LIMIT 1", (date,)
+            "SELECT id, content, score, date FROM jokes WHERE date = ? LIMIT 1", (date,)
         )
         daily_joke = cursor.fetchone()
         if daily_joke:
@@ -35,6 +35,7 @@ class Database:
                 "id": daily_joke[0],
                 "content": daily_joke[1],
                 "score": daily_joke[2],
+                "date": daily_joke[3]
             }
         else:
             cursor.execute(
@@ -43,7 +44,7 @@ class Database:
             )
             conn.commit()
             cursor.execute(
-                "SELECT id, content, score FROM jokes WHERE date = ? LIMIT 1", (date,)
+                "SELECT id, content, score, date FROM jokes WHERE date = ? LIMIT 1", (date,)
             )
             daily_joke = cursor.fetchone()
             conn.close()
